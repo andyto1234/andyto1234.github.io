@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-18T08:52:50.428538+00:00",
-  "refresh_date": "2026-05-18",
+  "generated_at": "2026-05-23T00:00:00+00:00",
+  "refresh_date": "2026-05-23",
   "counts": {
-    "all": 26,
+    "all": 25,
     "first-author": 5,
-    "collaborative": 20,
+    "collaborative": 19,
     "dataset": 1
   },
   "page_changes": {
     "index": false,
-    "publications": false,
+    "publications": true,
     "figures": false,
     "sitemap": true
   },
@@ -35,28 +35,6 @@
       "science_note": "This paper tests how chromospheric heating, acoustic flux, and turbulence affect first ionisation potential bias in ponderomotive-force models. Using HYDRAD simulations coupled to FIPpy, it shows that dynamic chromospheres can still reproduce fractionation, while stronger turbulence suppresses it and low acoustic flux can change the predicted ordering of elemental enhancement.",
       "page_id": "paper-2026",
       "original_index": 0
-    },
-    {
-      "kind": "collaborative",
-      "title": "Chromospheric Response to Photospheric Oscillations in Magnetic Elements",
-      "year": 2026,
-      "citation": "Baker, D., Long, D. M., Stangalini, M., Berretti, M., To, Andy S. H., Yardley, S. L., Testa, P. (submitted to the Astrophysical Journal)",
-      "status": "submitted",
-      "authors_raw": "Baker, D., Long, D. M., Stangalini, M., Berretti, M., To, Andy S. H. , Yardley, S. L., Testa, P",
-      "authors_html": "Baker, D., Long, D. M., Stangalini, M., Berretti, M., <span class=\"author-highlight\">To, Andy S. H.</span>, Yardley, S. L., Testa, P",
-      "meta": "Submitted to the Astrophysical Journal (2026)",
-      "ads_url": null,
-      "doi_url": null,
-      "summary": "Summary to be provided later.",
-      "summary_source": "site",
-      "figure_src": null,
-      "figure_alt": "",
-      "figure_width": null,
-      "figure_height": null,
-      "figure_note": "",
-      "science_note": "",
-      "page_id": "collaborative-2026-chromospheric-response-to-photospheric-oscillations-in-magnetic-elements",
-      "original_index": 5
     },
     {
       "kind": "collaborative",
