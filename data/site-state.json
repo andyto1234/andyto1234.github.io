@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-23T00:00:00+00:00",
-  "refresh_date": "2026-05-23",
+  "generated_at": "2026-06-08T09:55:13.309015+00:00",
+  "refresh_date": "2026-06-08",
   "counts": {
     "all": 25,
     "first-author": 5,
@@ -9,7 +9,7 @@
   },
   "page_changes": {
     "index": false,
-    "publications": true,
+    "publications": false,
     "figures": false,
     "sitemap": true
   },
@@ -56,7 +56,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-radiative-hydrodynamic-simulations-of-fip-fractionation-in-solar-flares",
-      "original_index": 6
+      "original_index": 5
     },
     {
       "kind": "collaborative",
@@ -78,7 +78,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-signs-of-sulphur-fractionation-under-high-magnetic-field-strength",
-      "original_index": 7
+      "original_index": 6
     },
     {
       "kind": "collaborative",
@@ -100,7 +100,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-dynamic-modeling-of-coronal-abundances-during-flares-on-m-dwarf-stars",
-      "original_index": 8
+      "original_index": 7
     },
     {
       "kind": "collaborative",
@@ -122,7 +122,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-inverse-fip-plasma-in-the-solar-atmosphere-a-synthesis-of-current-understanding-and-new-insights",
-      "original_index": 9
+      "original_index": 8
     },
     {
       "kind": "collaborative",
@@ -144,7 +144,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-sulfur-fractionation-in-coronal-plumes-as-observed-by-solar-orbiter-spice",
-      "original_index": 10
+      "original_index": 9
     },
     {
       "kind": "collaborative",
@@ -166,7 +166,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-comparing-first-ionisation-potential-bias-diagnostics-in-the-solar-atmosphere",
-      "original_index": 11
+      "original_index": 10
     },
     {
       "kind": "collaborative",
@@ -188,7 +188,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-identifying-spectroscopic-signatures-of-the-ponderomotive-force-in-the-solar-chromosphere",
-      "original_index": 12
+      "original_index": 11
     },
     {
       "kind": "first-author",
@@ -232,7 +232,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2025-spatiotemporal-low-fip-abundance-a-catalyst-for-coronal-condensation",
-      "original_index": 13
+      "original_index": 12
     },
     {
       "kind": "dataset",
@@ -254,7 +254,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "dataset-2025-hinode-eis-solar-flare-footpoint-non-thermal-velocity-dataset-2011-2024-data-set",
-      "original_index": 25
+      "original_index": 24
     },
     {
       "kind": "first-author",
@@ -298,7 +298,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-searching-for-evidence-of-subchromospheric-magnetic-reconnection-on-the-sun",
-      "original_index": 14
+      "original_index": 13
     },
     {
       "kind": "collaborative",
@@ -320,7 +320,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-observation-of-alfv-n-wave-reflection-in-the-solar-chromosphere-ponderomotive-force-and-first-ionization-potential-effect",
-      "original_index": 15
+      "original_index": 14
     },
     {
       "kind": "collaborative",
@@ -342,7 +342,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-identifying-plasma-fractionation-processes-in-the-chromosphere-using-iris",
-      "original_index": 16
+      "original_index": 15
     },
     {
       "kind": "first-author",
@@ -386,7 +386,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-slow-solar-wind-connection-science-during-solar-orbiter-s-first-close-perihelion-passage",
-      "original_index": 17
+      "original_index": 16
     },
     {
       "kind": "collaborative",
@@ -408,7 +408,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-the-merging-of-a-coronal-dimming-and-the-southern-polar-coronal-hole",
-      "original_index": 18
+      "original_index": 17
     },
     {
       "kind": "collaborative",
@@ -430,7 +430,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-observational-evidence-of-s-web-source-of-the-slow-solar-wind",
-      "original_index": 19
+      "original_index": 18
     },
     {
       "kind": "collaborative",
@@ -452,7 +452,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2022-what-determines-active-region-coronal-plasma-composition",
-      "original_index": 20
+      "original_index": 19
     },
     {
       "kind": "collaborative",
@@ -474,7 +474,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2022-evolution-of-plasma-composition-in-an-eruptive-flux-rope",
-      "original_index": 21
+      "original_index": 20
     },
     {
       "kind": "first-author",
@@ -518,7 +518,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2021-spectropolarimetric-fluctuations-in-a-sunspot-chromosphere",
-      "original_index": 22
+      "original_index": 21
     },
     {
       "kind": "collaborative",
@@ -540,7 +540,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2021-alfv-nic-perturbations-in-a-sunspot-chromosphere-linked-to-fractionated-plasma-in-the-corona",
-      "original_index": 23
+      "original_index": 22
     },
     {
       "kind": "collaborative",
@@ -562,7 +562,7 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2020-can-subphotospheric-magnetic-reconnection-change-the-elemental-composition-in-the-solar-corona",
-      "original_index": 24
+      "original_index": 23
     }
   ]
 }
