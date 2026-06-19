@@ -183,7 +183,7 @@ def citation_status(citation: str) -> str:
     lowered = citation.lower()
     if "accepted for publication" in lowered:
         return "accepted"
-    if "submitted to" in lowered or lowered.startswith("submitted"):
+    if "submitted to" in lowered or "submitted for review" in lowered or lowered.startswith("submitted"):
         return "submitted"
     if "data set" in lowered or "dataset" in lowered:
         return "dataset"
@@ -204,6 +204,8 @@ def citation_venue_text(citation: str, year: int, status: str) -> str:
         return f"Accepted for publication ({year})"
 
     if status == "submitted":
+        if "submitted for review" in citation.lower():
+            return f"Submitted for review ({year})"
         match = re.search(r"submitted to\s+(.+?)(?:\)|$)", citation, re.I)
         if match:
             venue = normalize_whitespace(match.group(1))
@@ -228,6 +230,10 @@ def citation_url(citation: str) -> str | None:
         return None
 
     doi_or_code = doi_match.group(1).strip()
+    if re.match(r"^\d{4}arXiv\d+[A-Z]?$", doi_or_code):
+        bibcode = quote(doi_or_code, safe=".")
+        return f"https://ui.adsabs.harvard.edu/abs/{bibcode}/abstract"
+
     if re.match(r"^\d{4}[A-Za-z].*", doi_or_code) and ("A&A" in doi_or_code or "&" in doi_or_code):
         bibcode = quote(doi_or_code, safe=".")
         return f"https://ui.adsabs.harvard.edu/abs/{bibcode}/abstract"
@@ -242,7 +248,7 @@ def citation_authors_text(citation: str) -> str:
     """Return the author portion of a CV citation line."""
 
     authors = citation.split("(", 1)[0]
-    return normalize_whitespace(authors).rstrip(" .")
+    return normalize_whitespace(authors).strip()
 
 
 def highlight_andy(text: str) -> str:
@@ -561,9 +567,37 @@ def fetch_binary(url: str, *, offline: bool = False, timeout: int = 30) -> bytes
         return None
 
 
+def arxiv_id_from_url(url: str | None) -> str | None:
+    if not url:
+        return None
+
+    match = re.search(r"arxiv\.org/(?:abs|pdf)/(\d{4}\.\d+)", url, re.I)
+    if match:
+        return match.group(1)
+
+    match = re.search(r"/abs/\d{4}arXiv(\d{4})(\d+)[A-Z]?/abstract", url, re.I)
+    if match:
+        return f"{match.group(1)}.{match.group(2)}"
+
+    return None
+
+
 def fetch_abstract_text(url: str | None, *, offline: bool = False) -> str | None:
     if not url or offline:
         return None
+
+    arxiv_id = arxiv_id_from_url(url)
+    if arxiv_id:
+        arxiv_html = fetch_url(f"https://arxiv.org/abs/{arxiv_id}", offline=offline)
+        if arxiv_html:
+            soup = BeautifulSoup(arxiv_html, "lxml")
+            abstract = soup.select_one("blockquote.abstract")
+            if abstract:
+                text = normalize_whitespace(abstract.get_text(" ", strip=True))
+                text = re.sub(r"^(abstract|summary)\s*[:\-]?\s*", "", text, flags=re.I)
+                if len(text) > 160:
+                    return text
+
     html_text = fetch_url(url, offline=offline)
     if not html_text:
         return None
@@ -604,6 +638,10 @@ def fetch_abstract_text(url: str | None, *, offline: bool = False) -> str | None
 def discover_pdf_url(url: str | None, *, offline: bool = False) -> str | None:
     if not url or offline:
         return None
+    arxiv_id = arxiv_id_from_url(url)
+    if arxiv_id:
+        return f"https://arxiv.org/pdf/{arxiv_id}"
+
     html_text = fetch_url(url, offline=offline)
     if not html_text:
         return None
@@ -1059,6 +1097,72 @@ def render_figure_showcase(record: PaperRecord) -> str:
     ).strip()
 
 
+def small_number_label(value: int) -> str:
+    words = {
+        0: "zero",
+        1: "one",
+        2: "two",
+        3: "three",
+        4: "four",
+        5: "five",
+        6: "six",
+        7: "seven",
+        8: "eight",
+        9: "nine",
+        10: "ten",
+    }
+    return words.get(value, str(value))
+
+
+def schema_article_items(records: list[PaperRecord]) -> list[dict[str, Any]]:
+    first_author = [record for record in records if record.kind == "first-author"]
+    return [
+        {
+            "@type": "ListItem",
+            "position": index,
+            "item": {
+                "@type": "ScholarlyArticle",
+                "name": record.title.rstrip("."),
+                "url": record.ads_url or record.doi_url or SITE_BASE_URL,
+            },
+        }
+        for index, record in enumerate(first_author, start=1)
+    ]
+
+
+def update_item_list_schema(soup: BeautifulSoup, records: list[PaperRecord]) -> None:
+    items = schema_article_items(records)
+    for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        raw = script.string or script.get_text()
+        if not raw:
+            continue
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+
+        changed = False
+        graph = data.get("@graph", []) if isinstance(data, dict) else []
+        for node in graph:
+            main_entity = node.get("mainEntity") if isinstance(node, dict) else None
+            if isinstance(main_entity, dict) and main_entity.get("@type") == "ItemList":
+                main_entity["numberOfItems"] = len(items)
+                main_entity["itemListElement"] = items
+                changed = True
+
+        if changed:
+            script.string = json.dumps(data, indent=6, ensure_ascii=False)
+
+
+def figure_index_label(record: PaperRecord, duplicate_years: set[int]) -> str:
+    if record.year not in duplicate_years:
+        return str(record.year)
+    short_title = record.title.rstrip(".")
+    if len(short_title) > 54:
+        short_title = short_title[:51].rstrip() + "..."
+    return f"{record.year} - {short_title}"
+
+
 def build_publications_list(records: list[PaperRecord]) -> str:
     return "\n".join(render_publication_card(record) for record in records)
 
@@ -1209,6 +1313,7 @@ def get_record_signature(records: list[PaperRecord], *, include_summary: bool = 
 def update_publications_page(records: list[PaperRecord]) -> bool:
     html_text = read_text_file(PUBLICATIONS_HTML)
     soup = BeautifulSoup(html_text, "lxml")
+    update_item_list_schema(soup, records)
 
     counts = {
         "all": len(records),
@@ -1262,12 +1367,50 @@ def update_home_page(records: list[PaperRecord]) -> bool:
 def update_figures_page(records: list[PaperRecord]) -> bool:
     html_text = read_text_file(FIGURES_HTML)
     soup = BeautifulSoup(html_text, "lxml")
+    update_item_list_schema(soup, records)
 
     content_column = soup.select_one(".figure-page-layout .content-column")
     if content_column is None:
         raise RuntimeError("Could not locate figures content column.")
 
-    # Keep the rail as-is and replace the showcase sections only.
+    first_author = [record for record in records if record.kind == "first-author"]
+    count_label = small_number_label(len(first_author))
+
+    for selector in [
+        ('meta[name="description"]', "content"),
+        ('meta[property="og:description"]', "content"),
+        ('meta[name="twitter:description"]', "content"),
+    ]:
+        node = soup.select_one(selector[0])
+        if node and node.has_attr(selector[1]):
+            node[selector[1]] = re.sub(
+                r"\b(five|5)\s+first-author",
+                f"{count_label} first-author",
+                str(node[selector[1]]),
+                flags=re.I,
+            )
+
+    summary_node = soup.select_one(".figure-rail__summary")
+    if summary_node:
+        summary_node.string = (
+            f"A visual guide to {count_label} first-author solar-physics papers. "
+            "Each section shows one representative figure together with a short note on "
+            "the science question and what the figure shows."
+        )
+
+    figure_index = soup.select_one(".figure-index--rail")
+    if figure_index:
+        years = [record.year for record in first_author]
+        duplicate_years = {year for year in years if years.count(year) > 1}
+        figure_index.clear()
+        for record in first_author:
+            item = soup.new_tag("li")
+            link = soup.new_tag("a", href=f"#{record.page_id or f'paper-{slugify(record.title)}'}")
+            link.string = figure_index_label(record, duplicate_years)
+            item.append(link)
+            figure_index.append(item)
+
+    # Replace the showcase sections after refreshing the rail metadata above.
     showcase_sections = content_column.select("section.figure-showcase")
     for section in showcase_sections:
         section.decompose()
