@@ -49,6 +49,7 @@ INDEX_HTML = ROOT / "index.html"
 PUBLICATIONS_HTML = ROOT / "publications.html"
 FIGURES_HTML = ROOT / "figures.html"
 SITE_STATE = ROOT / "data" / "site-state.json"
+PUBLICATION_OVERRIDES = ROOT / "data" / "publication-overrides.json"
 UPDATE_LOG = ROOT / "data" / "update-log.jsonl"
 LAST_REFRESH = ROOT / "data" / "last-refresh.txt"
 SITEMAP = ROOT / "sitemap.xml"
@@ -173,9 +174,9 @@ def extract_year_from_citation(citation: str) -> int:
 
 
 def extract_year_from_text(text: str) -> int:
-    match = re.search(r"(\d{4})", text or "")
-    if match:
-        return int(match.group(1))
+    matches = re.findall(r"(?:19|20)\d{2}", text or "")
+    if matches:
+        return int(matches[-1])
     return 0
 
 
@@ -433,14 +434,15 @@ def parse_current_figures(html_text: str) -> dict[str, dict[str, Any]]:
             continue
         title = normalize_whitespace(heading.get_text(" ", strip=True))
         key = normalize_title(title)
+        meta_text = normalize_whitespace(meta.get_text(" ", strip=True)) if meta else ""
         data[key] = {
             "title": title,
-            "year": int((section.get("id") or "paper-0").split("-")[1]) if section.get("id") else 0,
+            "year": extract_year_from_text(meta_text),
             "image_src": image.get("src"),
             "image_alt": image.get("alt", ""),
             "image_width": int(image.get("width", "0") or 0),
             "image_height": int(image.get("height", "0") or 0),
-            "meta": normalize_whitespace(meta.get_text(" ", strip=True)) if meta else "",
+            "meta": meta_text,
             "science_note": normalize_whitespace(science[0].get_text(" ", strip=True)) if len(science) > 0 else "",
             "figure_note": normalize_whitespace(science[1].get_text(" ", strip=True)) if len(science) > 1 else "",
             "ads_url": links[0].get("href") if links else None,
@@ -456,6 +458,29 @@ def load_previous_state() -> dict[str, Any]:
         return json.loads(read_text_file(SITE_STATE))
     except Exception:
         return {}
+
+
+def load_publication_overrides() -> dict[str, dict[str, Any]]:
+    """Load curated publication metadata keyed by the title used in the CV.
+
+    The source CV is intentionally not rewritten by the automated site refresh.
+    Overrides let a newly published paper replace its accepted/submitted metadata
+    with the canonical journal title, citation, and DOI on every future run.
+    """
+
+    if not PUBLICATION_OVERRIDES.exists():
+        return {}
+    try:
+        raw = json.loads(read_text_file(PUBLICATION_OVERRIDES))
+    except Exception as exc:
+        raise ValueError(f"Could not read publication overrides: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise ValueError("Publication overrides must be a JSON object keyed by title.")
+    return {
+        normalize_title(title): values
+        for title, values in raw.items()
+        if isinstance(title, str) and isinstance(values, dict)
+    }
 
 
 def merge_records(
@@ -474,12 +499,21 @@ def merge_records(
         for entry in previous_state.get("records", [])
     }
     merged: list[PaperRecord] = []
+    overrides = load_publication_overrides()
 
     for record in cv_records:
         key = normalize_title(record.title)
-        pub = current_publications.get(key) or current_selected.get(key) or {}
-        fig = current_figures.get(key) or {}
-        prev = prev_index.get(key) or {}
+        override = overrides.get(key) or {}
+        canonical_key = normalize_title(str(override.get("title") or record.title))
+        pub = (
+            current_publications.get(canonical_key)
+            or current_selected.get(canonical_key)
+            or current_publications.get(key)
+            or current_selected.get(key)
+            or {}
+        )
+        fig = current_figures.get(canonical_key) or current_figures.get(key) or {}
+        prev = prev_index.get(canonical_key) or prev_index.get(key) or {}
 
         record.ads_url = pub.get("url") or fig.get("ads_url") or citation_url(record.citation)
         record.doi_url = pub.get("doi_url")
@@ -496,6 +530,10 @@ def merge_records(
         record.figure_note = fig.get("figure_note") or prev.get("figure_note") or ""
         record.science_note = fig.get("science_note") or prev.get("science_note") or ""
         record.page_id = fig.get("page_id") or prev.get("page_id") or record.page_id
+
+        for field_name in ("title", "year", "citation", "status", "meta", "ads_url", "doi_url"):
+            if field_name in override:
+                setattr(record, field_name, override[field_name])
 
         if not record.summary or record.summary_source == "pending":
             abstract = fetch_abstract_text(record.ads_url, offline=offline)
@@ -914,9 +952,10 @@ def choose_pdf_page_with_openai(
 
 def render_publication_card(record: PaperRecord, summary_id: str | None = None) -> str:
     title_html = escape_html(record.title)
-    if record.ads_url:
+    primary_url = record.doi_url or record.ads_url
+    if primary_url:
         title_html = (
-            f'<a href="{escape_html(record.ads_url)}" target="_blank" rel="noreferrer noopener">'
+            f'<a href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">'
             f"{title_html}</a>"
         )
 
@@ -926,13 +965,10 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
         chip = f'<span class="bibliography-entry__chip">{record.status.title()}</span>'
 
     actions: list[str] = []
-    if record.ads_url:
+    if primary_url:
+        link_label = "Published paper" if record.doi_url else "ADS abstract"
         actions.append(
-            f'<a class="bibliography-entry__link" href="{escape_html(record.ads_url)}" target="_blank" rel="noreferrer noopener">ADS abstract</a>'
-        )
-    elif record.doi_url:
-        actions.append(
-            f'<a class="bibliography-entry__link" href="{escape_html(record.doi_url)}" target="_blank" rel="noreferrer noopener">DOI</a>'
+            f'<a class="bibliography-entry__link" href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
 
     abstract_html = ""
@@ -985,18 +1021,20 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
 
 def render_selected_publication_card(record: PaperRecord, index: int) -> str:
     summary_id = f"abstract-{record.year}-{slugify(record.title)}"
+    primary_url = record.doi_url or record.ads_url
     title_html = (
-        f'<a href="{escape_html(record.ads_url)}" target="_blank" rel="noreferrer noopener">{escape_html(record.title)}</a>'
-        if record.ads_url
+        f'<a href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{escape_html(record.title)}</a>'
+        if primary_url
         else escape_html(record.title)
     )
     chip = ""
     if record.status in {"accepted", "submitted"}:
         chip = f'<span class="bibliography-entry__chip">{record.status.title()}</span>'
     actions = []
-    if record.ads_url:
+    if primary_url:
+        link_label = "Published paper" if record.doi_url else "ADS abstract"
         actions.append(
-            f'<a class="bibliography-entry__link" href="{escape_html(record.ads_url)}" target="_blank" rel="noreferrer noopener">ADS abstract</a>'
+            f'<a class="bibliography-entry__link" href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
     if record.summary:
         actions.append(
@@ -1065,9 +1103,11 @@ def render_figure_showcase(record: PaperRecord) -> str:
     science = record.science_note or record.summary
     figure_note = record.figure_note or "Representative figure selected from the paper."
     link_html = ""
-    if record.ads_url:
+    primary_url = record.doi_url or record.ads_url
+    if primary_url:
+        link_label = "Published paper" if record.doi_url else "ADS abstract"
         link_html = (
-            f'<a href="{escape_html(record.ads_url)}" target="_blank" rel="noreferrer noopener">ADS abstract</a>'
+            f'<a href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
 
     return textwrap.dedent(
@@ -1123,7 +1163,7 @@ def schema_article_items(records: list[PaperRecord]) -> list[dict[str, Any]]:
             "item": {
                 "@type": "ScholarlyArticle",
                 "name": record.title.rstrip("."),
-                "url": record.ads_url or record.doi_url or SITE_BASE_URL,
+                "url": record.doi_url or record.ads_url or SITE_BASE_URL,
             },
         }
         for index, record in enumerate(first_author, start=1)
@@ -1186,7 +1226,7 @@ def publication_state_from_record(record: PaperRecord) -> dict[str, Any]:
         "meta": normalize_whitespace(record.meta),
         "summary": normalize_whitespace(record.summary),
         "chip": record.status.title() if record.status in {"accepted", "submitted", "dataset"} else "",
-        "url": record.ads_url or record.doi_url or "",
+        "url": record.doi_url or record.ads_url or "",
     }
 
 
@@ -1228,7 +1268,7 @@ def selected_state_from_records(records: list[PaperRecord]) -> list[dict[str, An
             "authors_html": normalize_whitespace(record.authors_html),
             "meta": normalize_whitespace(record.meta),
             "summary": normalize_whitespace(record.summary),
-            "url": record.ads_url or record.doi_url or "",
+            "url": record.doi_url or record.ads_url or "",
         }
         for record in selected
     ]
@@ -1247,7 +1287,7 @@ def selected_state_from_current(entries: dict[str, dict[str, Any]]) -> list[dict
         }
         for entry in entries.values()
     ]
-    return sorted(items, key=lambda item: (-item["year"], item["title"]))
+    return items
 
 
 def figure_state_from_record(record: PaperRecord) -> dict[str, Any]:
@@ -1262,7 +1302,7 @@ def figure_state_from_record(record: PaperRecord) -> dict[str, Any]:
         "meta": normalize_whitespace(record.meta),
         "science_note": normalize_whitespace(record.science_note),
         "figure_note": normalize_whitespace(record.figure_note),
-        "ads_url": record.ads_url or "",
+        "ads_url": record.doi_url or record.ads_url or "",
     }
 
 
