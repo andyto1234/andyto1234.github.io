@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-22T06:02:39.829144+00:00",
-  "refresh_date": "2026-07-22",
+  "generated_at": "2026-08-10T06:21:19.174619+00:00",
+  "refresh_date": "2026-08-10",
   "counts": {
     "all": 26,
     "first-author": 6,
@@ -8,9 +8,9 @@
     "dataset": 1
   },
   "page_changes": {
-    "index": true,
-    "publications": true,
-    "figures": true,
+    "index": false,
+    "publications": false,
+    "figures": false,
     "sitemap": true
   },
   "records": [
