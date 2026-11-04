@@ -935,6 +935,25 @@ body.is-leaving .simple-page {
   letter-spacing: -0.01em;
 }
 
+.content-section.content-section--bar {
+  --section-inset: 1.5rem;
+  padding: 0 var(--section-inset) var(--section-inset);
+}
+
+.content-section .section-header-bar {
+  margin: 0 calc(-1 * var(--section-inset)) 1rem;
+  padding: 0.48rem var(--section-inset);
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
 .intro-grid,
 .columns-3,
 .link-grid,
@@ -2985,6 +3004,10 @@ body.is-leaving .simple-page {
 
   .content-section {
     padding: 1.1rem;
+  }
+
+  .content-section.content-section--bar {
+    --section-inset: 1.1rem;
   }
 
   .profile-card__links {
