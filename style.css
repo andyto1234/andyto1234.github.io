@@ -2285,6 +2285,7 @@ body.is-leaving .simple-page {
 
 .publication-list--master {
   position: relative;
+  margin-top: 0.75rem;
 }
 
 .publication-list--numbered .publication-card__header {
