@@ -2018,69 +2018,6 @@ body.is-leaving .simple-page {
   margin-top: -0.15rem;
 }
 
-#selected-publications .publication-card--bibliography .publication-card__header {
-  gap: 0.5rem 0.85rem;
-  padding: 0.5rem 0;
-}
-
-#selected-publications .publication-card__eyebrow {
-  margin-bottom: 0.28rem;
-  font-size: 0.64rem;
-}
-
-#selected-publications .publication-list__title {
-  font-size: 1rem;
-  line-height: 1.32;
-}
-
-#selected-publications .publication-card__authors {
-  margin-top: 0.12rem;
-  font-size: 0.9rem;
-  line-height: 1.38;
-}
-
-#selected-publications .publication-card__meta {
-  margin-top: 0.12rem;
-  font-size: 0.89rem;
-  line-height: 1.36;
-}
-
-#selected-publications .publication-card__actions {
-  gap: 0.38rem;
-}
-
-#selected-publications .bibliography-entry__chip,
-#selected-publications .bibliography-entry__link,
-#selected-publications .publication-card__toggle {
-  min-height: 1.9rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  font-size: 0.62rem;
-}
-
-#selected-publications .bibliography-entry__chip,
-#selected-publications .bibliography-entry__link {
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
-}
-
-#selected-publications .publication-card__abstract {
-  margin-top: 0;
-}
-
-#selected-publications .publication-card.is-open .publication-card__abstract {
-  margin-top: 0.04rem;
-}
-
-#selected-publications .publication-card__abstract-inner {
-  padding-left: 0.72rem;
-}
-
-#selected-publications .publication-card__abstract-label {
-  margin: 0.18rem 0 0.22rem;
-  font-size: 0.68rem;
-}
-
 #selected-publications .content-note {
   margin-top: 0.75rem;
   padding-top: 0.7rem;
@@ -2331,48 +2268,48 @@ body.is-leaving .simple-page {
   position: relative;
 }
 
-.publication-list--master .publication-card__header {
+.publication-list--numbered .publication-card__header {
   gap: 0.4rem 0.8rem;
   padding-block: 0.44rem;
 }
 
-.publication-list--master .publication-card__eyebrow {
+.publication-list--numbered .publication-card__eyebrow {
   margin-bottom: 0.22rem;
 }
 
-.publication-list--master .publication-list__title {
+.publication-list--numbered .publication-list__title {
   line-height: 1.28;
 }
 
-.publication-list--master .publication-card__authors,
-.publication-list--master .publication-card__meta {
+.publication-list--numbered .publication-card__authors,
+.publication-list--numbered .publication-card__meta {
   margin-top: 0.1rem;
   line-height: 1.3;
 }
 
-.publication-list--master .publication-card__toggle {
+.publication-list--numbered .publication-card__toggle {
   min-width: 1.9rem;
   justify-content: center;
 }
 
-.publication-list--master .publication-card.is-open .publication-card__header {
+.publication-list--numbered .publication-card.is-open .publication-card__header {
   padding-bottom: 0;
 }
 
-.publication-list--master .publication-card.is-open .publication-card__abstract {
+.publication-list--numbered .publication-card.is-open .publication-card__abstract {
   margin-top: 0;
 }
 
-.publication-list--master .publication-card.is-open .publication-card__abstract-inner {
+.publication-list--numbered .publication-card.is-open .publication-card__abstract-inner {
   padding-block: 0.45rem;
 }
 
-.publication-list--master .publication-card__abstract-inner p {
+.publication-list--numbered .publication-card__abstract-inner p {
   margin: 0;
   line-height: 1.36;
 }
 
-.publication-list--master > .publication-list__item::before {
+.publication-list--numbered > .publication-list__item::before {
   padding-top: 0.6rem;
 }
 

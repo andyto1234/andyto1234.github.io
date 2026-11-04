@@ -1025,60 +1025,7 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
 
 def render_selected_publication_card(record: PaperRecord, index: int) -> str:
     summary_id = f"abstract-{record.year}-{slugify(record.title)}"
-    primary_url = record.doi_url or record.ads_url
-    title_html = (
-        f'<a href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{escape_html(record.title)}</a>'
-        if primary_url
-        else escape_html(record.title)
-    )
-    chip = ""
-    if record.status:
-        chip = f'<span class="bibliography-entry__chip">{record.status.title()}</span>'
-    actions = []
-    if primary_url:
-        link_label = publication_link_label(record)
-        actions.append(
-            f'<a class="bibliography-entry__link" href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
-        )
-    if record.summary:
-        actions.append(
-            f'<button class="publication-card__toggle" type="button" aria-expanded="false" aria-controls="{summary_id}" aria-label="Show summary for {escape_html(record.title)}"><span class="publication-card__toggle-label">Summary</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10l4 4 4-4"></path></svg></button>'
-        )
-
-    abstract_html = ""
-    if record.summary:
-        abstract_html = textwrap.dedent(
-            f"""
-            <div class="publication-card__abstract" id="{summary_id}">
-              <div class="publication-card__abstract-inner">
-                <p class="publication-card__abstract-label">Summary</p>
-                <p>{escape_html(record.summary)}</p>
-              </div>
-            </div>
-            """
-        ).strip()
-
-    return textwrap.dedent(
-        f"""
-        <li class="publication-list__item">
-          <article class="publication-card publication-card--bibliography">
-            <div class="publication-card__header" data-publication-trigger>
-              <div class="publication-card__copy">
-                <p class="publication-card__eyebrow">{record.year} · First author</p>
-                <p class="publication-list__title">{title_html}</p>
-                <p class="publication-card__authors">{record.authors_html or escape_html(record.authors_raw)}</p>
-                <p class="publication-card__meta">{escape_html(record.meta)}</p>
-              </div>
-              <div class="publication-card__actions">
-                {chip}
-                {' '.join(actions)}
-              </div>
-            </div>
-            {abstract_html}
-          </article>
-        </li>
-        """
-    ).strip()
+    return render_publication_card(record, summary_id=summary_id)
 
 
 def render_figure_showcase(record: PaperRecord) -> str:
