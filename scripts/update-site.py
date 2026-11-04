@@ -429,7 +429,7 @@ def parse_current_figures(html_text: str) -> dict[str, dict[str, Any]]:
     soup = BeautifulSoup(html_text, "lxml")
     data: dict[str, dict[str, Any]] = {}
     for section in soup.select(".figure-showcase"):
-        heading = section.select_one("h2")
+        heading = section.select_one(".figure-showcase__title") or section.select_one("h2")
         image = section.select_one("figure.figure-showcase__media img")
         meta = section.select_one(".figure-showcase__meta")
         science = section.select(".figure-showcase__text-block p:not(.figure-showcase__label)")
@@ -1064,13 +1064,12 @@ def render_figure_showcase(record: PaperRecord) -> str:
 
     return textwrap.dedent(
         f"""
-        <section class="content-section figure-showcase" id="{escape_html(record.page_id or f"paper-{slugify(record.title)}")}">
-          <p class="section-tag"><span class="section-tag__dot" aria-hidden="true"></span><span>{record.year}</span></p>
+        <section class="content-section content-section--bar figure-showcase" id="{escape_html(record.page_id or f"paper-{slugify(record.title)}")}">
+          <h2 class="section-header-bar"><span class="figure-showcase__year">{record.year}</span><span class="figure-showcase__title">{escape_html(record.title)}</span></h2>
           <div class="figure-showcase__grid">
             {figure_html}
             <div class="figure-showcase__body">
               <div>
-                <h2>{escape_html(record.title)}</h2>
                 <p class="figure-showcase__meta">{escape_html(record.meta)}</p>
               </div>
               <div class="figure-showcase__text-block">
