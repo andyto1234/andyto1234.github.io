@@ -72,7 +72,11 @@
     "citation": "To, Andy S. H., Russell, A. J. B. (2026). In review, Nature Communications. arXiv:2606.06577",
     "ads_url": "https://arxiv.org/abs/2606.06577",
     "science_note": "Hinode/EIS spectra from 407 flares show that footpoint line broadening is predominantly aligned with the magnetic field.",
-    "figure_note": "The paper compares flare-footpoint line widths across viewing angles to test whether broadening follows the magnetic field."
+    "figure_note": "Fe XIV 264.79 Å line widths versus viewing angle in the five minutes before and after the GOES peak, comparing C- and M-class flares.",
+    "figure_src": "./images/figures/fe14-pre-post-peak-comparison.png",
+    "figure_alt": "Fe XIV 264.79 angstrom line widths versus viewing angle for C- and M-class flares, before and after the GOES peak.",
+    "figure_width": 2160,
+    "figure_height": 1080
   },
   "Radiative hydrodynamic simulations of first ionization potential fractionation in solar flares": {
     "summary": "Flare simulations link the distribution of low-FIP-enriched plasma to loop heating, cooling and coronal rain.",

@@ -538,7 +538,7 @@ def merge_records(
         record.science_note = fig.get("science_note") or prev.get("science_note") or ""
         record.page_id = fig.get("page_id") or prev.get("page_id") or record.page_id
 
-        for field_name in ("title", "year", "citation", "status", "meta", "ads_url", "doi_url", "summary", "summary_source", "science_note", "figure_note"):
+        for field_name in ("title", "year", "citation", "status", "meta", "ads_url", "doi_url", "summary", "summary_source", "science_note", "figure_note", "figure_src", "figure_alt", "figure_width", "figure_height"):
             if field_name in override:
                 setattr(record, field_name, override[field_name])
 
