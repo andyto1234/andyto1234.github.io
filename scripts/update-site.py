@@ -5,7 +5,7 @@ The updater keeps the hand-designed HTML/CSS intact and only rewrites the
 content blocks when the underlying record data actually changes.
 
 It performs four main jobs:
-1. Parse the repo-copied CV (.docx) into structured publication records.
+1. Load reviewed CV publication records, falling back to the repo-copied DOCX.
 2. Merge those records with the current site so existing ADS links, summaries,
    and figure assets are preserved when possible.
 3. Optionally enrich missing summaries from ADS abstracts and, if an OpenAI API
@@ -45,6 +45,7 @@ except Exception:  # pragma: no cover - optional dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 CV_SOURCE = ROOT / "automation" / "source" / "CV_ASHT.docx"
+CV_RECORDS = ROOT / "automation" / "source" / "publication-records.json"
 INDEX_HTML = ROOT / "index.html"
 PUBLICATIONS_HTML = ROOT / "publications.html"
 FIGURES_HTML = ROOT / "figures.html"
@@ -182,8 +183,10 @@ def extract_year_from_text(text: str) -> int:
 
 def citation_status(citation: str) -> str:
     lowered = citation.lower()
-    if "accepted for publication" in lowered:
+    if "accepted" in lowered:
         return "accepted"
+    if "in review" in lowered or "under review" in lowered:
+        return "in review"
     if "submitted to" in lowered or "submitted for review" in lowered or lowered.startswith("submitted"):
         return "submitted"
     if "data set" in lowered or "dataset" in lowered:
@@ -476,11 +479,14 @@ def load_publication_overrides() -> dict[str, dict[str, Any]]:
         raise ValueError(f"Could not read publication overrides: {exc}") from exc
     if not isinstance(raw, dict):
         raise ValueError("Publication overrides must be a JSON object keyed by title.")
-    return {
-        normalize_title(title): values
-        for title, values in raw.items()
-        if isinstance(title, str) and isinstance(values, dict)
-    }
+    indexed: dict[str, dict[str, Any]] = {}
+    for title, values in raw.items():
+        if not isinstance(title, str) or not isinstance(values, dict):
+            continue
+        keys = {normalize_title(title), normalize_title(str(values.get("title") or title))}
+        for key in keys:
+            indexed.setdefault(key, {}).update(values)
+    return indexed
 
 
 def merge_records(
@@ -516,7 +522,7 @@ def merge_records(
         prev = prev_index.get(canonical_key) or prev_index.get(key) or {}
 
         record.ads_url = pub.get("url") or fig.get("ads_url") or citation_url(record.citation)
-        record.doi_url = pub.get("doi_url")
+        record.doi_url = pub.get("doi_url") or prev.get("doi_url") or record.doi_url
         authors_text = pub.get("authors_text") or citation_authors_text(record.citation)
         record.authors_html = pub.get("authors_html") or highlight_andy(html.escape(authors_text))
         record.authors_raw = authors_text
@@ -531,7 +537,7 @@ def merge_records(
         record.science_note = fig.get("science_note") or prev.get("science_note") or ""
         record.page_id = fig.get("page_id") or prev.get("page_id") or record.page_id
 
-        for field_name in ("title", "year", "citation", "status", "meta", "ads_url", "doi_url"):
+        for field_name in ("title", "year", "citation", "status", "meta", "ads_url", "doi_url", "summary", "summary_source", "science_note", "figure_note"):
             if field_name in override:
                 setattr(record, field_name, override[field_name])
 
@@ -961,12 +967,12 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
 
     eyebrow = f"{record.year} · {record.kind.replace('-', ' ').title()}"
     chip = ""
-    if record.status in {"accepted", "submitted", "dataset"}:
+    if record.status:
         chip = f'<span class="bibliography-entry__chip">{record.status.title()}</span>'
 
     actions: list[str] = []
     if primary_url:
-        link_label = "Published paper" if record.doi_url else "ADS abstract"
+        link_label = publication_link_label(record)
         actions.append(
             f'<a class="bibliography-entry__link" href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
@@ -979,7 +985,6 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
             f"""
             <div class="publication-card__abstract" id="{escape_html(summary_id)}">
               <div class="publication-card__abstract-inner">
-                <p class="publication-card__abstract-label">Summary</p>
                 <p>{escape_html(record.summary)}</p>
               </div>
             </div>
@@ -989,7 +994,6 @@ def render_publication_card(record: PaperRecord, summary_id: str | None = None) 
             textwrap.dedent(
                 f"""
                 <button class="publication-card__toggle" type="button" aria-expanded="false" aria-controls="{escape_html(summary_id)}" aria-label="Show summary for {escape_html(record.title)}">
-                  <span class="publication-card__toggle-label">Summary</span>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10l4 4 4-4"></path></svg>
                 </button>
                 """
@@ -1028,11 +1032,11 @@ def render_selected_publication_card(record: PaperRecord, index: int) -> str:
         else escape_html(record.title)
     )
     chip = ""
-    if record.status in {"accepted", "submitted"}:
+    if record.status:
         chip = f'<span class="bibliography-entry__chip">{record.status.title()}</span>'
     actions = []
     if primary_url:
-        link_label = "Published paper" if record.doi_url else "ADS abstract"
+        link_label = publication_link_label(record)
         actions.append(
             f'<a class="bibliography-entry__link" href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
@@ -1105,7 +1109,7 @@ def render_figure_showcase(record: PaperRecord) -> str:
     link_html = ""
     primary_url = record.doi_url or record.ads_url
     if primary_url:
-        link_label = "Published paper" if record.doi_url else "ADS abstract"
+        link_label = publication_link_label(record)
         link_html = (
             f'<a href="{escape_html(primary_url)}" target="_blank" rel="noreferrer noopener">{link_label}</a>'
         )
@@ -1194,13 +1198,16 @@ def update_item_list_schema(soup: BeautifulSoup, records: list[PaperRecord]) -> 
             script.string = json.dumps(data, indent=6, ensure_ascii=False)
 
 
-def figure_index_label(record: PaperRecord, duplicate_years: set[int]) -> str:
-    if record.year not in duplicate_years:
-        return str(record.year)
-    short_title = record.title.rstrip(".")
-    if len(short_title) > 54:
-        short_title = short_title[:51].rstrip() + "..."
-    return f"{record.year} - {short_title}"
+def publication_link_label(record: PaperRecord) -> str:
+    if record.status == "dataset":
+        return "Dataset"
+    if record.doi_url:
+        return "Published paper" if record.status == "published" else "Journal page"
+    if record.ads_url and "/search/" in record.ads_url:
+        return "Find on ADS"
+    if record.ads_url and "arxiv.org/" in record.ads_url:
+        return "arXiv preprint"
+    return "ADS abstract"
 
 
 def build_publications_list(records: list[PaperRecord]) -> str:
@@ -1440,13 +1447,15 @@ def update_figures_page(records: list[PaperRecord]) -> bool:
 
     figure_index = soup.select_one(".figure-index--rail")
     if figure_index:
-        years = [record.year for record in first_author]
-        duplicate_years = {year for year in years if years.count(year) > 1}
+        seen_years: set[int] = set()
         figure_index.clear()
         for record in first_author:
+            if record.year in seen_years:
+                continue
+            seen_years.add(record.year)
             item = soup.new_tag("li")
             link = soup.new_tag("a", href=f"#{record.page_id or f'paper-{slugify(record.title)}'}")
-            link.string = figure_index_label(record, duplicate_years)
+            link.string = str(record.year)
             item.append(link)
             figure_index.append(item)
 
@@ -1590,7 +1599,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if not CV_SOURCE.exists():
+    if not CV_SOURCE.exists() and not CV_RECORDS.exists():
         print(f"Missing source CV: {CV_SOURCE}", file=sys.stderr)
         return 1
 
@@ -1599,8 +1608,11 @@ def main() -> int:
         print("Refresh skipped: less than 14 days since the last successful run.")
         return 0
 
-    paragraphs = read_docx_paragraphs(CV_SOURCE)
-    cv_records = parse_cv_records(paragraphs)
+    if CV_RECORDS.exists():
+        cv_records = [PaperRecord(**entry) for entry in json.loads(read_text_file(CV_RECORDS))]
+    else:
+        paragraphs = read_docx_paragraphs(CV_SOURCE)
+        cv_records = parse_cv_records(paragraphs)
 
     current_publications = parse_current_publications(read_text_file(PUBLICATIONS_HTML))
     current_selected = parse_current_selected(read_text_file(INDEX_HTML))
@@ -1634,8 +1646,7 @@ def main() -> int:
             page_changes["publications"] = update_publications_page(records)
         if not state_equals(current_selected_state, next_selected_state):
             page_changes["index"] = update_home_page(records)
-        if not state_equals(current_figures_state, next_figures_state):
-            page_changes["figures"] = update_figures_page(records)
+        page_changes["figures"] = update_figures_page(records)
         page_changes["sitemap"] = update_sitemap(refresh_date)
         append_update_log(records, refresh_date, page_changes)
         write_text_file(LAST_REFRESH, refresh_date)

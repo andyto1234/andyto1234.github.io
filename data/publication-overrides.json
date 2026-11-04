@@ -6,7 +6,9 @@
     "status": "published",
     "meta": "Philosophical Transactions of the Royal Society A, 384(2323), 20250374 (2026)",
     "ads_url": "https://ui.adsabs.harvard.edu/abs/2026arXiv260413174T/abstract",
-    "doi_url": "https://doi.org/10.1098/rsta.2025.0374"
+    "doi_url": "https://doi.org/10.1098/rsta.2025.0374",
+    "summary": "HYDRAD–FIPpy simulations show how chromospheric dynamics reshape elemental fractionation and stronger turbulence suppresses the solar FIP effect.",
+    "summary_source": "site"
   },
   "Radiative hydrodynamic simulations of FIP fractionation in solar flares": {
     "title": "Radiative hydrodynamic simulations of first ionization potential fractionation in solar flares",
@@ -61,5 +63,149 @@
     "meta": "Philosophical Transactions of the Royal Society A, 384(2323), 20250172 (2026)",
     "ads_url": "https://ui.adsabs.harvard.edu/abs/2026arXiv260305223S/abstract",
     "doi_url": "https://doi.org/10.1098/rsta.2025.0172"
+  },
+  "Nonthermal line broadening at solar flare footpoints is primarily field-aligned": {
+    "summary": "Hinode/EIS spectra from 407 flares show that footpoint line broadening is predominantly aligned with the magnetic field.",
+    "summary_source": "site",
+    "status": "in review",
+    "meta": "Nature Communications · in review (2026)",
+    "citation": "To, Andy S. H., Russell, A. J. B. (2026). In review, Nature Communications. arXiv:2606.06577",
+    "ads_url": "https://arxiv.org/abs/2606.06577",
+    "science_note": "Hinode/EIS spectra from 407 flares show that footpoint line broadening is predominantly aligned with the magnetic field.",
+    "figure_note": "The paper compares flare-footpoint line widths across viewing angles to test whether broadening follows the magnetic field."
+  },
+  "Radiative hydrodynamic simulations of first ionization potential fractionation in solar flares": {
+    "summary": "Flare simulations link the distribution of low-FIP-enriched plasma to loop heating, cooling and coronal rain.",
+    "summary_source": "site"
+  },
+  "Signs of sulfur fractionation under high magnetic field strength": {
+    "summary": "Hinode/EIS observations show weaker sulfur and low-FIP enrichment in coronal loops with mean magnetic fields above about 150 G.",
+    "summary_source": "site"
+  },
+  "Dynamic modelling of coronal abundances during flares on M-dwarf stars": {
+    "summary": "Simulations show that low-FIP depletion makes coronal rain harder to form during flares on active M-dwarf stars.",
+    "summary_source": "site"
+  },
+  "Inverse FIP effect plasma in the solar atmosphere: a synthesis of current understanding and new insights from AR 11967": {
+    "summary": "A synthesis of observations and models examines the origins of inverse-FIP plasma, including new evidence from AR 11967.",
+    "summary_source": "site"
+  },
+  "Sulfur fractionation in coronal plumes as observed by Solar Orbiter/Spectral Imaging of the Coronal Environment": {
+    "summary": "Solar Orbiter/SPICE observations reveal sulfur fractionation in coronal plumes rooted in strong magnetic concentrations.",
+    "summary_source": "site"
+  },
+  "Comparing first ionization potential bias diagnostics in the solar atmosphere": {
+    "summary": "Comparing three Hinode/EIS abundance diagnostics shows that signal-to-noise thresholds affect pixel coverage more than median FIP bias.",
+    "summary_source": "site"
+  },
+  "Identifying spectroscopic signatures of the ponderomotive force in the solar chromosphere.": {
+    "summary": "A study of chromospheric spectroscopic signatures associated with the ponderomotive force and elemental fractionation.",
+    "summary_source": "site",
+    "year": 2026,
+    "status": "accepted",
+    "meta": "Publications of the Astronomical Society of Japan · accepted (2026)",
+    "citation": "Long, D. M., Baker, D., Yardley, S. L., Stangalini, M., To, Andy S. H. (2026). Accepted, Publications of the Astronomical Society of Japan.",
+    "ads_url": "https://ui.adsabs.harvard.edu/search/q=title%3A%22Identifying%20spectroscopic%20signatures%20of%20the%20ponderomotive%20force%20in%20the%20solar%20chromosphere%22"
+  },
+  "Systematic non-thermal velocity increase preceding soft X-ray flare onset.": {
+    "summary": "A survey of 1,449 flares finds enhanced non-thermal velocities before soft X-ray onset, often earlier in eruptive events.",
+    "summary_source": "site",
+    "doi_url": "https://doi.org/10.3847/1538-4357/ae07de"
+  },
+  "Spatiotemporal Low FIP Abundance: A Catalyst for Coronal Condensation.": {
+    "summary": "Hydrodynamic simulations show that evolving low-FIP abundances can increase radiative losses and promote coronal condensation.",
+    "summary_source": "site",
+    "doi_url": "https://doi.org/10.3847/1538-4357/ae019d"
+  },
+  "Hinode/EIS Solar Flare Footpoint Non-Thermal Velocity Dataset (2011–2024) [Data set].": {
+    "summary": "An open Hinode/EIS dataset of solar-flare footpoint non-thermal velocities covering 2011–2024.",
+    "summary_source": "site",
+    "doi_url": "https://doi.org/10.5281/zenodo.15613861",
+    "meta": "Zenodo · open dataset (2025)"
+  },
+  "Spatially resolved plasma composition evolution in a solar flare – The effect of reconnection outflow.": {
+    "summary": "Flare-loop abundance maps reveal enriched plasma near loop tops and photospheric composition at footpoints, consistent with downflows and evaporation.",
+    "summary_source": "site"
+  },
+  "Searching for Evidence of Subchromospheric Magnetic Reconnection on the Sun.": {
+    "summary": "Inverse-FIP plasma near light bridges and merging sunspots supports a link between subsurface reconnection and coronal abundance anomalies.",
+    "summary_source": "site"
+  },
+  "Observation of Alfvén Wave Reflection in the Solar Chromosphere: Ponderomotive Force and First Ionization Potential Effect.": {
+    "summary": "Chromospheric observations reveal Alfvén-wave reflection, connecting wave behaviour with ponderomotive-force fractionation.",
+    "summary_source": "site"
+  },
+  "Identifying Plasma Fractionation Processes in the Chromosphere Using IRIS.": {
+    "summary": "Joint IRIS and Hinode/EIS observations link chromospheric line widths with coronal composition, consistent with wave-driven fractionation.",
+    "summary_source": "site"
+  },
+  "Understanding the Relationship between Solar Coronal Abundances and F10.7 cm Radio Emission.": {
+    "summary": "Coordinated radio and EUV observations show how sunspot gyroresonance alters the relationship between F10.7 emission and coronal abundances.",
+    "summary_source": "site"
+  },
+  "Slow Solar Wind Connection Science during Solar Orbiter's First Close Perihelion Passage.": {
+    "summary": "A coordinated Solar Orbiter campaign connects remotely observed source regions with slow solar wind measured at the spacecraft.",
+    "summary_source": "site"
+  },
+  "The Merging of a Coronal Dimming and the Southern Polar Coronal Hole.": {
+    "summary": "A coronal dimming merged with a polar coronal hole for at least 72 hours, developing similar flows through magnetic reconnection.",
+    "summary_source": "site"
+  },
+  "Observational Evidence of S-web Source of the Slow Solar Wind.": {
+    "summary": "Solar Orbiter observations and magnetic modelling identify an open-field S-web corridor as a source of slow solar wind.",
+    "summary_source": "site"
+  },
+  "What Determines Active Region Coronal Plasma Composition?.": {
+    "summary": "A survey of 28 active regions links coronal composition to local evolution and magnetic flux density rather than age alone.",
+    "summary_source": "site"
+  },
+  "Evolution of Plasma Composition in an Eruptive Flux Rope.": {
+    "summary": "Composition measurements support flux-rope formation through photospheric flux cancellation and reconnection before a coronal mass ejection.",
+    "summary_source": "site"
+  },
+  "The Evolution of Plasma Composition during a Solar Flare.": {
+    "summary": "Flare observations reveal different responses in Ca/Ar and Si/S abundance diagnostics, probing heating and chromospheric plasma injection.",
+    "summary_source": "site"
+  },
+  "Spectropolarimetric fluctuations in a sunspot chromosphere.": {
+    "summary": "Sunspot spectropolarimetry links intensity and circular-polarisation fluctuations over a narrow range of magnetic-field inclinations.",
+    "summary_source": "site"
+  },
+  "Alfvénic Perturbations in a Sunspot Chromosphere Linked to Fractionated Plasma in the Corona.": {
+    "summary": "Magnetic modelling connects fractionated coronal plasma with sites of chromospheric Alfvénic fluctuations around a sunspot.",
+    "summary_source": "site"
+  },
+  "Can Subphotospheric Magnetic Reconnection Change the Elemental Composition in the Solar Corona?.": {
+    "summary": "Inverse-FIP patches above merging sunspots support a scenario involving subsurface reconnection, wave generation and flare evaporation.",
+    "summary_source": "site"
+  },
+  "Direct Injection of Chemically-Enhanced Plasma into a Solar Flare Arcade": {
+    "status": "submitted",
+    "meta": "The Astrophysical Journal · submitted (2026)",
+    "ads_url": "https://arxiv.org/abs/2610.28961",
+    "summary": "Modelling shows that reconnection-driven plasma injection can reproduce enriched flare arcades and bright loop-top knots.",
+    "summary_source": "abstract"
+  },
+  "Mg II Signatures of Frequency Dependent Wave Propagation in Magnetic Elements": {
+    "status": "submitted",
+    "meta": "Solar Physics · submitted (2026)",
+    "ads_url": "https://arxiv.org/abs/2610.38861",
+    "summary": "IRIS Mg II profiles and photospheric tracking link chromospheric spectral states to high-frequency waves in magnetic elements.",
+    "summary_source": "abstract"
+  },
+  "Three-dimensional magnetic reconnection in unipolar regions. A case study of coronal bright points in the Sun": {
+    "status": "accepted",
+    "meta": "Astronomy & Astrophysics · accepted (2026)",
+    "ads_url": "https://arxiv.org/abs/2610.06524",
+    "summary": "Bifrost simulations and Hinode/EIS observations connect reconnection in apparently unipolar regions with coronal-bright-point heating and upflows.",
+    "summary_source": "abstract",
+    "doi_url": "https://doi.org/10.1051/0004-6361/202662789"
+  },
+  "Active nests at solar maximum: How nested flux emergence dominated flaring activity and structured the heliosphere": {
+    "status": "accepted",
+    "meta": "Astronomy & Astrophysics · accepted (2026)",
+    "ads_url": "https://arxiv.org/abs/2608.26315",
+    "summary": "Global monitoring shows that three active nests produced nearly 80% of solar flares over 156 days in 2024.",
+    "summary_source": "abstract"
   }
 }
