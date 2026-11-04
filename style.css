@@ -2641,23 +2641,6 @@ body.is-leaving .simple-page {
   content: none;
 }
 
-.figure-showcase .section-header-bar {
-  display: flex;
-  align-items: baseline;
-  gap: 0.8rem;
-}
-
-.figure-showcase__year {
-  flex: 0 0 auto;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.figure-showcase__title {
-  min-width: 0;
-}
-
 .figure-page-layout .figure-showcase:hover {
   border-color: rgba(0, 82, 255, 0.2);
   background: #fbfdff;

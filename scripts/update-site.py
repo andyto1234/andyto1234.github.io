@@ -1065,11 +1065,12 @@ def render_figure_showcase(record: PaperRecord) -> str:
     return textwrap.dedent(
         f"""
         <section class="content-section content-section--bar figure-showcase" id="{escape_html(record.page_id or f"paper-{slugify(record.title)}")}">
-          <h2 class="section-header-bar"><span class="figure-showcase__year">{record.year}</span><span class="figure-showcase__title">{escape_html(record.title)}</span></h2>
+          <p class="section-header-bar">{record.year}</p>
           <div class="figure-showcase__grid">
             {figure_html}
             <div class="figure-showcase__body">
               <div>
+                <h2 class="figure-showcase__title">{escape_html(record.title)}</h2>
                 <p class="figure-showcase__meta">{escape_html(record.meta)}</p>
               </div>
               <div class="figure-showcase__text-block">
