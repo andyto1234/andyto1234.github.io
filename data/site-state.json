@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T13:17:55.566805+00:00",
+  "generated_at": "2026-11-04T13:39:03.384851+00:00",
   "refresh_date": "2026-11-04",
   "counts": {
     "all": 30,
@@ -8,7 +8,7 @@
     "dataset": 1
   },
   "page_changes": {
-    "index": false,
+    "index": true,
     "publications": false,
     "figures": false,
     "sitemap": false
@@ -34,7 +34,8 @@
       "figure_note": "The paper compares flare-footpoint line widths across viewing angles to test whether broadening follows the magnetic field.",
       "science_note": "Hinode/EIS spectra from 407 flares show that footpoint line broadening is predominantly aligned with the magnetic field.",
       "page_id": "paper-nonthermal-line-broadening-at-solar-flare-footpoints-is-primarily-field-aligned",
-      "original_index": 0
+      "original_index": 0,
+      "public_date": "2026-06-04"
     },
     {
       "kind": "first-author",
@@ -56,7 +57,8 @@
       "figure_note": "This figure shows one heated-loop simulation at t = 700 s, including temperature, density, velocity, ponderomotive acceleration, ionisation fractions, and the resulting FIP bias pattern. It summarizes how the altered chromospheric structure changes the fractionation behaviour of low-, intermediate-, and high-FIP elements.",
       "science_note": "This paper tests how chromospheric heating, acoustic flux, and turbulence affect first ionisation potential bias in ponderomotive-force models. Using HYDRAD simulations coupled to FIPpy, it shows that dynamic chromospheres can still reproduce fractionation, while stronger turbulence suppresses it and low acoustic flux can change the predicted ordering of elemental enhancement.",
       "page_id": "paper-2026",
-      "original_index": 1
+      "original_index": 1,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -78,7 +80,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "",
-      "original_index": 2
+      "original_index": 2,
+      "public_date": "2026-10-20"
     },
     {
       "kind": "collaborative",
@@ -100,7 +103,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "",
-      "original_index": 3
+      "original_index": 3,
+      "public_date": "2026-10-28"
     },
     {
       "kind": "collaborative",
@@ -122,7 +126,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "",
-      "original_index": 4
+      "original_index": 4,
+      "public_date": "2026-10-05"
     },
     {
       "kind": "collaborative",
@@ -144,7 +149,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "",
-      "original_index": 5
+      "original_index": 5,
+      "public_date": "2026-08-26"
     },
     {
       "kind": "collaborative",
@@ -166,7 +172,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-radiative-hydrodynamic-simulations-of-fip-fractionation-in-solar-flares",
-      "original_index": 6
+      "original_index": 6,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -188,7 +195,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-signs-of-sulphur-fractionation-under-high-magnetic-field-strength",
-      "original_index": 7
+      "original_index": 7,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -210,7 +218,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-dynamic-modeling-of-coronal-abundances-during-flares-on-m-dwarf-stars",
-      "original_index": 8
+      "original_index": 8,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -232,7 +241,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-inverse-fip-plasma-in-the-solar-atmosphere-a-synthesis-of-current-understanding-and-new-insights",
-      "original_index": 9
+      "original_index": 9,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -254,7 +264,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-sulfur-fractionation-in-coronal-plumes-as-observed-by-solar-orbiter-spice",
-      "original_index": 10
+      "original_index": 10,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -276,7 +287,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-comparing-first-ionisation-potential-bias-diagnostics-in-the-solar-atmosphere",
-      "original_index": 11
+      "original_index": 11,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -298,7 +310,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2026-identifying-spectroscopic-signatures-of-the-ponderomotive-force-in-the-solar-chromosphere",
-      "original_index": 12
+      "original_index": 12,
+      "public_date": ""
     },
     {
       "kind": "first-author",
@@ -320,7 +333,8 @@
       "figure_note": "These two panels were used in the AAS Nova feature on the paper. The first shows a representative increase in non-thermal velocity before an M-class flare peak, while the second contrasts precursor timing in flares without CMEs and with CMEs, illustrating the earlier and broader precursor signatures associated with eruptive events.",
       "science_note": "This paper uses a Hinode/EIS catalogue of 1449 flares from 2011 to 2024 to measure how EUV non-thermal velocities evolve before flare onset. It finds that line broadening typically increases several minutes before GOES soft X-ray start, with onset timing varying with flare class and earlier precursor signatures in M-class events.",
       "page_id": "paper-2025",
-      "original_index": 13
+      "original_index": 13,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -342,7 +356,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2025-spatiotemporal-low-fip-abundance-a-catalyst-for-coronal-condensation",
-      "original_index": 14
+      "original_index": 14,
+      "public_date": ""
     },
     {
       "kind": "dataset",
@@ -364,7 +379,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "dataset-2025-hinode-eis-solar-flare-footpoint-non-thermal-velocity-dataset-2011-2024-data-set",
-      "original_index": 15
+      "original_index": 15,
+      "public_date": ""
     },
     {
       "kind": "first-author",
@@ -386,7 +402,8 @@
       "figure_note": "This illustration summarizes the interpretation proposed in the paper. During the impulsive phase, heating reaches the chromosphere below the fractionation layer; low-FIP-bias chromospheric plasma then evaporates upward into the lower loop, while high-FIP-bias plasma from reconnection downflows remains near the loop top. The right-hand sketch also highlights how loop-top and footpoint X-ray sources sample these different composition regimes.",
       "science_note": "This paper follows the spatial and temporal evolution of FIP bias in the 2017 September 10 X8.2 flare using 12 Hinode/EIS rasters and two composition diagnostics. It finds persistent high-FIP-bias plasma at loop tops and near-photospheric plasma at footpoints, consistent with mixing between high-FIP-bias downflows from the plasma sheet and low-FIP-bias chromospheric evaporation.",
       "page_id": "paper-2024",
-      "original_index": 16
+      "original_index": 16,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -408,7 +425,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-searching-for-evidence-of-subchromospheric-magnetic-reconnection-on-the-sun",
-      "original_index": 17
+      "original_index": 17,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -430,7 +448,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-observation-of-alfv-n-wave-reflection-in-the-solar-chromosphere-ponderomotive-force-and-first-ionization-potential-effect",
-      "original_index": 18
+      "original_index": 18,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -452,7 +471,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2024-identifying-plasma-fractionation-processes-in-the-chromosphere-using-iris",
-      "original_index": 19
+      "original_index": 19,
+      "public_date": ""
     },
     {
       "kind": "first-author",
@@ -474,7 +494,8 @@
       "figure_note": "This figure lays out the multiwavelength view of the active region on the two observing days: AIA, HMI, Si/S composition, and Stokes I and V radio maps. It also defines the regions used in the paper to compare FIP bias with the different radio emission components.",
       "science_note": "This paper examines why Sun-as-a-star coronal composition and F10.7 remain correlated but become nonlinear at higher activity. Using joint JVLA, Hinode/EIS, and SDO observations of AR 12759, it shows that strong sunspot magnetic fields and gyroresonance emission change the local relationship between radio flux and coronal abundances.",
       "page_id": "paper-2023",
-      "original_index": 20
+      "original_index": 20,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -496,7 +517,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-slow-solar-wind-connection-science-during-solar-orbiter-s-first-close-perihelion-passage",
-      "original_index": 21
+      "original_index": 21,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -518,7 +540,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-the-merging-of-a-coronal-dimming-and-the-southern-polar-coronal-hole",
-      "original_index": 22
+      "original_index": 22,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -540,7 +563,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2023-observational-evidence-of-s-web-source-of-the-slow-solar-wind",
-      "original_index": 23
+      "original_index": 23,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -562,7 +586,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2022-what-determines-active-region-coronal-plasma-composition",
-      "original_index": 24
+      "original_index": 24,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -584,7 +609,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2022-evolution-of-plasma-composition-in-an-eruptive-flux-rope",
-      "original_index": 25
+      "original_index": 25,
+      "public_date": ""
     },
     {
       "kind": "first-author",
@@ -606,7 +632,8 @@
       "figure_note": "This figure compares composition and intensity-ratio maps from three EIS rasters through the flare. It shows how the composition signal evolves across the flaring region and how the X-shaped structure becomes clearer in the later raster.",
       "science_note": "This paper studies how plasma composition changes during a small solar flare using Hinode/EIS. It finds a clear flare-time increase in the Ca/Ar diagnostic, while the Si/S diagnostic remains comparatively unchanged, pointing to dynamic fractionation or differential line-response effects during the event.",
       "page_id": "paper-2021",
-      "original_index": 26
+      "original_index": 26,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -628,7 +655,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2021-spectropolarimetric-fluctuations-in-a-sunspot-chromosphere",
-      "original_index": 27
+      "original_index": 27,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -650,7 +678,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2021-alfv-nic-perturbations-in-a-sunspot-chromosphere-linked-to-fractionated-plasma-in-the-corona",
-      "original_index": 28
+      "original_index": 28,
+      "public_date": ""
     },
     {
       "kind": "collaborative",
@@ -672,7 +701,8 @@
       "figure_note": "",
       "science_note": "",
       "page_id": "collaborative-2020-can-subphotospheric-magnetic-reconnection-change-the-elemental-composition-in-the-solar-corona",
-      "original_index": 29
+      "original_index": 29,
+      "public_date": ""
     }
   ]
 }

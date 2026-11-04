@@ -96,6 +96,7 @@ class PaperRecord:
     science_note: str = ""
     page_id: str = ""
     original_index: int = 0
+    public_date: str = ""
 
     def normalized(self) -> dict[str, Any]:
         """Return the stable subset used for comparisons and state storage."""
@@ -1162,8 +1163,13 @@ def build_publications_list(records: list[PaperRecord]) -> str:
 
 
 def build_selected_publications(records: list[PaperRecord]) -> str:
-    first_author = [record for record in records if record.kind == "first-author"]
-    return "\n".join(render_selected_publication_card(record, index) for index, record in enumerate(first_author[:5], start=1))
+    return "\n".join(render_selected_publication_card(record, index) for index, record in enumerate(recent_papers(records), start=1))
+
+
+def recent_papers(records: list[PaperRecord]) -> list[PaperRecord]:
+    """Select recent papers across authorship roles using their public release dates."""
+    papers = [record for record in records if record.kind != "dataset"]
+    return sorted(papers, key=lambda record: (record.year, record.public_date), reverse=True)[:4]
 
 
 def build_figures_sections(records: list[PaperRecord]) -> str:
@@ -1179,7 +1185,7 @@ def publication_state_from_record(record: PaperRecord) -> dict[str, Any]:
         "authors_html": normalize_whitespace(record.authors_html),
         "meta": normalize_whitespace(record.meta),
         "summary": normalize_whitespace(record.summary),
-        "chip": record.status.title() if record.status in {"accepted", "submitted", "dataset"} else "",
+        "chip": record.status.title(),
         "url": record.doi_url or record.ads_url or "",
     }
 
@@ -1214,7 +1220,7 @@ def sorted_publication_state_from_current(entries: dict[str, dict[str, Any]]) ->
 
 
 def selected_state_from_records(records: list[PaperRecord]) -> list[dict[str, Any]]:
-    selected = [record for record in records if record.kind == "first-author"][:5]
+    selected = recent_papers(records)
     items = [
         {
             "title": normalize_whitespace(record.title),
@@ -1343,12 +1349,15 @@ def update_home_page(records: list[PaperRecord]) -> bool:
     html_text = read_text_file(INDEX_HTML)
     soup = BeautifulSoup(html_text, "lxml")
 
+    heading = soup.select_one("#selected-publications h2")
+    if heading:
+        heading.string = "Recent papers"
+
     list_node = soup.select_one("#selected-publications ol.publication-list--numbered")
     if list_node is None:
         raise RuntimeError("Could not locate selected publications list.")
 
     list_node.clear()
-    selected_records = [record for record in records if record.kind == "first-author"][:5]
     fragment = BeautifulSoup(build_selected_publications(records), "lxml")
     for child in fragment.body.contents if fragment.body else fragment.contents:
         if getattr(child, "name", None):

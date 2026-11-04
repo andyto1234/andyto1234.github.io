@@ -7,3 +7,5 @@ python scripts/update-site.py --offline --force
 ```
 
 `automation/source/publication-records.json` is the reviewed bibliography from the November 2026 CV. Edit it when adding or removing papers. `data/publication-overrides.json` holds corrected metadata, links and concise summaries. The DOCX is retained as a fallback source; the downloadable PDF is in `documents/`. The figures sidebar groups papers by year and preserves individual paper anchors.
+
+The homepage shows four recent papers across all authorship roles. Set `public_date` (YYYY-MM-DD) to the publication or preprint release date to order papers within a year; the year is used when no date is recorded. Dataset records are excluded from this selection.
