@@ -1312,7 +1312,7 @@ body.is-leaving .simple-page {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.6rem 1rem;
-  align-items: flex-end;
+  align-items: baseline;
   padding-bottom: 0;
 }
 
@@ -1328,6 +1328,7 @@ body.is-leaving .simple-page {
 
 .research-highlight__tabs {
   display: inline-flex;
+  align-items: baseline;
   flex-wrap: wrap;
   gap: 0.45rem 1.2rem;
 }
