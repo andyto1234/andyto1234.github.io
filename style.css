@@ -2444,7 +2444,7 @@ body.is-leaving .simple-page {
   min-height: 2.15rem;
   padding: 0.35rem 0.72rem;
   border: 1px solid var(--line);
-  border-radius: 0.3rem;
+  border-radius: 999px;
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.04em;
@@ -2758,7 +2758,7 @@ body.is-leaving .simple-page {
 .figure-showcase__links a {
   min-height: 1.4rem;
   padding: 0.12rem 0.4rem;
-  border-radius: 0.3rem;
+  border-radius: 999px;
   background: transparent;
   color: var(--muted);
   font-family: var(--font-mono);
