@@ -1335,7 +1335,7 @@ body.is-leaving .simple-page {
 
 .research-highlight__tab {
   min-height: 0;
-  padding: 0.2rem 0.45rem 0.42rem;
+  padding: 0.2rem 0.45rem 0.16rem;
   border: 0;
   border-bottom: 2px solid transparent;
   border-radius: 0;
