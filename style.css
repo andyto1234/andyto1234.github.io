@@ -1995,7 +1995,7 @@ body.is-leaving .simple-page {
 }
 
 .publication-card--bibliography .publication-card__actions {
-  gap: 0.38rem;
+  gap: 0.28rem;
 }
 
 .publication-card--bibliography .publication-card__abstract-inner {
@@ -2015,13 +2015,13 @@ body.is-leaving .simple-page {
 .publication-card--bibliography .bibliography-entry__chip,
 .publication-card--bibliography .bibliography-entry__link,
 .publication-card--bibliography .publication-card__toggle {
-  font-size: 0.63rem;
+  font-size: 0.58rem;
 }
 
 .publication-card--bibliography .bibliography-entry__chip,
 .publication-card--bibliography .bibliography-entry__link {
-  min-height: 1.9rem;
-  padding: 0.28rem 0.62rem;
+  min-height: 1.4rem;
+  padding: 0.12rem 0.4rem;
 }
 
 .publication-card--bibliography.is-open .publication-card__abstract {
@@ -2444,23 +2444,23 @@ body.is-leaving .simple-page {
   min-height: 2.15rem;
   padding: 0.35rem 0.72rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 0.3rem;
   font-family: var(--font-mono);
   font-size: 0.66rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .bibliography-entry__chip {
-  background: var(--accent-soft);
-  border-color: rgba(0, 82, 255, 0.14);
+  background: rgba(0, 82, 255, 0.04);
+  border-color: rgba(0, 82, 255, 0.1);
   color: var(--accent);
 }
 
 .bibliography-entry__link {
-  background: var(--surface-alt);
-  color: var(--text);
+  background: transparent;
+  color: var(--muted);
   text-decoration: none;
   transition:
     color var(--motion-fast) ease,
@@ -2756,12 +2756,15 @@ body.is-leaving .simple-page {
 }
 
 .figure-showcase__links a {
-  min-height: 1.9rem;
-  padding: 0.28rem 0.62rem;
+  min-height: 1.4rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: 0.58rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
