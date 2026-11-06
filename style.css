@@ -1334,6 +1334,7 @@ body.is-leaving .simple-page {
 }
 
 .research-highlight__tab {
+  position: relative;
   min-height: 0;
   padding: 0.2rem 0.45rem 0.29rem;
   border: 0;
@@ -1351,14 +1352,25 @@ body.is-leaving .simple-page {
     border-color var(--motion-fast) ease;
 }
 
+.research-highlight__tab::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: -2px;
+  height: 2px;
+  background: var(--tab-underline, transparent);
+  transition: background-color var(--motion-fast) ease;
+}
+
 .research-highlight__tab:hover,
 .research-highlight__tab:focus-visible {
   color: var(--text);
-  border-color: rgba(0, 82, 255, 0.16);
+  --tab-underline: rgba(0, 82, 255, 0.16);
 }
 
 .research-highlight__tab.is-active {
-  border-color: var(--accent);
+  --tab-underline: var(--accent);
   color: var(--text);
   box-shadow: none;
 }
