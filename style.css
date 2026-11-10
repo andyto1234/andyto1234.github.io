@@ -2053,6 +2053,8 @@ body.is-leaving .simple-page {
 #selected-publications .content-note {
   margin-top: 0.75rem;
   padding-top: 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
 }
 
 #current-work .fact-grid {
